@@ -52,7 +52,7 @@ import {
 import "./App.css";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_API_URL || "/api",
 });
 api.interceptors.request.use((config) => {
   const token = sessionStorage.getItem("ict-token");
@@ -734,7 +734,7 @@ function AssessmentEditor() {
           setQuestions(r.data.data.questions || []);
           if (r.data.data.publicToken) {
             setQrUrl(
-              `${window.location.origin}/assessment/${r.data.data.publicToken}`,
+              `${(import.meta.env.VITE_PUBLIC_APP_URL || window.location.origin).replace(/\/+$/, "")}/assessment/${r.data.data.publicToken}`,
             );
           }
         })
